@@ -1,0 +1,816 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="dark">
+<meta http-equiv="Cache-Control" content="no-cache, must-revalidate">
+<title>Growth Audit — Inkitt Galatea</title>
+<link rel="icon" href="img/icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,300;0,6..72,400;0,6..72,500;1,6..72,300;1,6..72,400&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{
+  color-scheme: only dark;
+  /* ---- Galatea, extracted from their live onboarding, paywall and App Store art ---- */
+  --ga-ob1:#0A291C; --ga-ob2:#051B14; --ga-ob3:#03120D;   /* onboarding green wash */
+  --ga-ink:#FFFFFF; --ga-ink2:#C9D2CE; --ga-muted:#95A39E;
+  --ga-pink:#C6176B; --ga-mint:#62D2A2; --ga-lav:#C9B6F4;
+  --ga-pw:#1A1A1A; --ga-card:#1F1F21; --ga-line:#3B3B3B; --ga-green:#0C9856; --ga-sel:#1AA35F; --ga-lime:#C8F25A; --ga-tag:#3A3A3C; --ga-seg:#3A3A3C;
+  --r-ctl:12px; --r-pill:999px;
+  /* ---- the shell, in Galatea's palette: App Store green, pink logo, mint italic ---- */
+  --bg:#071E17; --bg2:#0C2A21; --surf:#0F3027; --hair:rgba(255,255,255,.09); --hair2:rgba(255,255,255,.16);
+  --ink:#F3F5F2; --ink2:#B9C6C0; --ink3:#86978F;
+  --accent:#C6176B; --accent-lift:#FF4E92; --mint:#62D2A2;
+  --panel-ink:#10241D; --panel-muted:#61716B; --panel-line:#E6EAE8; --accent-ink:#B0135E;
+}
+*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
+body{background:var(--bg);color:var(--ink);font-family:Inter,-apple-system,sans-serif;font-size:15px;line-height:1.6;-webkit-font-smoothing:antialiased}
+button{font:inherit;color:inherit;background:none;border:none;cursor:pointer}
+.serif{font-family:Newsreader,Georgia,serif}
+em.m{font-style:italic;color:var(--mint)}
+
+/* nav */
+.nav{position:sticky;top:0;z-index:70;background:rgba(7,30,23,.86);backdrop-filter:blur(18px) saturate(160%);border-bottom:1px solid var(--hair)}
+.nav-in{padding:0 28px;height:68px;display:flex;align-items:center;gap:12px}
+.nav-in img{height:26px;width:auto;display:block}
+.nav-in .lb{font-size:14px;font-weight:500;color:var(--ink2);padding-left:12px;border-left:1px solid var(--hair2)}
+.nav-links{margin-left:auto;display:flex;gap:4px;background:rgba(255,255,255,.07);border-radius:999px;padding:4px}
+.nav-links button{display:flex;align-items:center;gap:9px;height:44px;padding:0 20px 0 8px;border-radius:999px;font-size:15px;font-weight:600;color:var(--ink2);transition:background .18s,color .18s}
+.nav-links button .n{width:28px;height:28px;border-radius:50%;background:rgba(255,255,255,.1);color:var(--ink2);display:grid;place-items:center;font-size:12.5px;font-weight:700}
+.nav-links button:hover{color:#fff}
+.nav-links button.on{background:var(--accent);color:#fff}
+.nav-links button.on .n{background:rgba(255,255,255,.24);color:#fff}
+@media(max-width:560px){.nav-in{padding:0 12px}.nav-in .lb{display:none}.nav-in img{height:21px}.nav-links button{height:40px;padding:0 13px 0 6px;font-size:14px}.nav-links button .n{width:26px;height:26px}}
+
+.view{display:none}.view.on{display:block}
+.wrap{max-width:1080px;margin:0 auto;padding:0 32px}
+@media(max-width:700px){.wrap{padding:0 20px}}
+
+/* ============ overview ============ */
+.hero{padding:110px 0 0;text-align:center;position:relative;overflow:hidden}
+.hero-grid{position:absolute;inset:-40px -60px auto;height:720px;display:grid;grid-template-columns:repeat(8,1fr);gap:14px;opacity:.5;pointer-events:none;z-index:0;-webkit-mask-image:radial-gradient(70% 70% at 50% 40%,transparent 18%,#000 62%),linear-gradient(#000 55%,transparent);mask-image:linear-gradient(#000 40%,transparent 95%)}
+.hero-grid .col{display:flex;flex-direction:column;gap:14px}
+.hero-grid .col:nth-child(even){margin-top:-70px}
+.hero-grid img{width:100%;aspect-ratio:256/400;object-fit:cover;border-radius:10px}
+.hero::before{content:'';position:absolute;inset:0;pointer-events:none;background:radial-gradient(52% 58% at 50% 36%,rgba(7,30,23,.98) 38%,rgba(7,30,23,.82) 66%,rgba(7,30,23,.45) 100%),linear-gradient(180deg,rgba(7,30,23,.3),rgba(7,30,23,.1) 40%,var(--bg) 92%);z-index:1}
+.hero::after{content:'';position:absolute;left:50%;top:-260px;transform:translateX(-50%);width:1000px;height:600px;border-radius:50%;pointer-events:none;background:radial-gradient(closest-side,rgba(198,23,107,.22),transparent 72%);z-index:1}
+.hero>.wrap{position:relative;z-index:2}
+.eyebrow{font-size:11.5px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:var(--accent-lift);margin-bottom:26px}
+.hero h1{font-family:Newsreader,serif;font-size:92px;line-height:.98;font-weight:300;letter-spacing:-.02em;margin:0 0 24px}
+.hero h1 em{font-style:italic;color:var(--mint)}
+.hero .lede{font-size:20px;line-height:1.5;color:var(--ink2);max-width:620px;margin:0 auto}
+.hero .meta{margin-top:26px;font-size:13px;color:var(--ink3)}
+.hero .meta b{color:var(--ink2)}
+.herobtns{display:flex;justify-content:center;gap:10px;margin-top:28px;flex-wrap:wrap}
+.pillbtn{display:inline-flex;align-items:center;gap:10px;height:52px;padding:0 28px;border-radius:999px;font-size:16px;font-weight:600}
+.pillbtn.pink{background:var(--accent);color:#fff;box-shadow:0 10px 24px -12px rgba(198,23,107,.9)}
+.pillbtn.ghost{background:rgba(255,255,255,.08);border:1px solid var(--hair2);color:#fff}
+@media(max-width:820px){.hero h1{font-size:58px}.hero{padding-top:72px}.hero .lede{font-size:17px}}
+.stats{display:flex;margin:64px auto 0;max-width:760px;border-top:1px solid var(--hair);border-bottom:1px solid var(--hair);background:rgba(7,30,23,.7);backdrop-filter:blur(8px)}
+.stat{flex:1;padding:26px 12px;text-align:center;border-left:1px solid var(--hair)}
+.stat:first-child{border-left:0}
+.stat b{display:block;font-family:Newsreader,serif;font-size:34px;line-height:1.05;font-weight:400}
+.stat span{display:block;font-size:12px;color:var(--ink3);margin-top:6px;line-height:1.35}
+@media(max-width:700px){.stat b{font-size:24px}.stat{padding:18px 6px}}
+.fb{max-width:760px;margin:0 auto;padding:30px 0 0;display:grid;grid-template-columns:1fr 1fr;gap:26px;text-align:left}
+@media(max-width:700px){.fb{grid-template-columns:1fr;gap:18px}}
+.fb-k{grid-column:1/-1;font-size:10.5px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:var(--ink3);text-align:center;margin-bottom:-6px}
+.fb-i{display:flex;gap:12px}
+.fb-i .tick{width:20px;height:20px;flex:none;margin-top:2px;border-radius:50%;background:var(--accent);display:grid;place-items:center}
+.fb-i .tick svg{width:11px;height:11px;stroke:#fff;stroke-width:3;fill:none;stroke-linecap:round;stroke-linejoin:round}
+.fb-i p{font-size:14.5px;line-height:1.55;color:var(--ink2)}
+.fb-i p b{color:#fff}
+.sec{padding:92px 0}
+.sec-k{font-size:11.5px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:var(--ink3);margin-bottom:18px}
+.sec h2{font-family:Newsreader,serif;font-size:44px;line-height:1.1;font-weight:300;letter-spacing:-.015em;margin:0 0 20px;max-width:780px}
+.sec h2 em{font-style:italic;color:var(--mint)}
+.sec p.body{font-size:17px;line-height:1.66;color:var(--ink2);max-width:660px;margin:0 0 18px}
+.sec p.body b{color:#fff;font-weight:600}
+@media(max-width:820px){.sec h2{font-size:32px}.sec{padding:60px 0}}
+.notes{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:36px;max-width:840px}
+@media(max-width:760px){.notes{grid-template-columns:1fr}}
+.note{background:var(--surf);border:1px solid var(--hair);border-radius:20px;padding:24px 26px}
+.note h4{font-size:16.5px;font-weight:700;margin-bottom:8px}
+.note p{font-size:14.5px;line-height:1.6;color:var(--ink2)}
+.ideas{margin-top:14px;display:flex;flex-direction:column;gap:12px}
+.idea{display:grid;grid-template-columns:56px 1fr 190px;gap:22px;align-items:start;padding:24px 26px 24px 22px;background:var(--surf);border:1px solid var(--hair);border-radius:20px;text-align:left;width:100%;transition:transform .15s,border-color .15s}
+.idea:hover{transform:translateY(-1px);border-color:rgba(255,78,146,.45)}
+@media(max-width:780px){.idea{grid-template-columns:44px 1fr;gap:14px;padding:20px 18px}}
+.idea .ic{width:48px;height:48px;border-radius:50%;position:relative}
+.idea .ic img{width:48px;height:48px;border-radius:50%;object-fit:cover;display:block;box-shadow:0 0 0 2px var(--ga-lav)}
+.idea .ic .no{position:absolute;right:-6px;top:-6px;width:22px;height:22px;border-radius:50%;background:var(--accent);color:#fff;font:700 12px/22px Inter,sans-serif;text-align:center;box-shadow:0 0 0 2.5px var(--surf)}
+@media(max-width:780px){.idea .ic,.idea .ic img{width:40px;height:40px}}
+.idea h3{font-size:20px;line-height:1.28;font-weight:700;letter-spacing:-.015em;margin-bottom:7px}
+.idea p{font-size:15px;line-height:1.6;color:var(--ink2);max-width:560px}
+.idea .seeit{display:block;margin-top:10px;font-size:13.5px;font-weight:600;color:var(--accent-lift)}
+.idea .out{text-align:right;padding-top:3px}
+@media(max-width:780px){.idea .out{grid-column:2;text-align:left;padding-top:4px}}
+.idea .out b{display:block;font-size:20px;font-weight:800;color:var(--mint);white-space:nowrap}
+.idea .out span{display:block;font-size:10.5px;color:var(--ink3);margin-top:4px;letter-spacing:.04em;text-transform:uppercase;font-weight:600}
+.band{background:linear-gradient(135deg,#0F3B30 0%,#12241F 100%);border:1px solid var(--hair);border-radius:28px;padding:38px 44px;margin-top:44px;display:flex;align-items:center;gap:36px;flex-wrap:wrap}
+@media(max-width:700px){.band{padding:28px 24px}}
+.band .lab{font-size:11.5px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--ink3);margin-bottom:12px}
+.band .txt{flex:1;min-width:240px}
+.band .txt p{font-size:16px;line-height:1.6;color:var(--ink2)}
+.band .nums{display:flex;gap:34px}
+.band .nums b{display:block;font-family:Newsreader,serif;font-size:40px;line-height:1.1;font-weight:400;color:var(--mint)}
+.band .nums span{display:block;font-size:11px;color:var(--ink3);letter-spacing:.04em;text-transform:uppercase;font-weight:600}
+.cta-row{display:flex;justify-content:center;align-items:center;gap:22px;margin-top:52px;flex-wrap:wrap}
+.qr{display:flex;align-items:center;gap:16px;background:var(--surf);border:1px solid var(--hair);border-radius:18px;padding:12px 20px 12px 12px}
+.qr img{width:135px;height:135px;image-rendering:pixelated;display:block;border-radius:6px}
+.qr b{display:block;font-size:14.5px}
+.qr span{display:block;font-size:13px;color:var(--ink3);line-height:1.45;max-width:170px;margin-top:3px}
+@media(max-width:1080px){.qr{display:none}}
+.foot{border-top:1px solid var(--hair);padding:36px 0 70px;font-size:12.5px;line-height:1.6;color:var(--ink3)}
+
+/* ============ prototype view ============ */
+.stage{display:grid;grid-template-columns:minmax(470px,1fr) minmax(400px,520px);align-items:start;min-height:calc(100vh - 68px)}
+@media(max-width:1060px){.stage{grid-template-columns:minmax(0,1fr)}.panelcol{position:static!important;max-height:none!important;border-left:0!important;border-top:1px solid var(--hair)}}
+.phonecol{padding:24px 24px 44px;display:flex;flex-direction:column;align-items:center;gap:14px;position:relative}
+.panelcol{border-left:1px solid var(--hair);background:#fff;position:sticky;top:68px;max-height:calc(100vh - 68px);overflow-y:auto}
+.tools{display:flex;gap:8px;flex-wrap:wrap;justify-content:center}
+.seg{display:inline-flex;background:rgba(255,255,255,.06);border:1px solid var(--hair2);border-radius:20px;padding:3px;gap:2px}
+.seg button{padding:6px 12px;border-radius:16px;font-size:12.5px;font-weight:600;line-height:1;color:var(--ink2)}
+.seg button.on{background:#fff;color:var(--panel-ink)}
+.seg.demo button{display:flex;align-items:center;gap:6px}
+.chips{display:flex;flex-wrap:wrap;gap:6px;justify-content:center;max-width:470px}
+.chip{padding:7px 13px;border-radius:20px;border:1px solid var(--hair2);background:rgba(255,255,255,.05);font-size:12.5px;font-weight:600;color:var(--ink2)}
+.chip.offer{border-style:dashed;border-color:var(--accent-lift);color:var(--accent-lift)}
+.chip.on{background:var(--accent);border-color:var(--accent);color:#fff;border-style:solid}
+.chiphint{text-align:center;font-size:11px;color:var(--ink3);margin:0;max-width:430px}
+.demo-cap{width:412px;max-width:100%;background:#fff;color:var(--panel-ink);border-radius:14px;padding:0 16px;font-size:14px;line-height:1.4;overflow:hidden;max-height:0;transition:max-height .25s,padding .25s}
+.demo-cap.on{max-height:90px;padding:11px 16px 13px}
+.demo-cap .bar{height:3px;background:#E8ECEA;border-radius:2px;margin-top:9px;overflow:hidden}
+.demo-cap .bar i{display:block;height:100%;width:0;background:var(--accent)}
+.finger{position:absolute;z-index:200;width:34px;height:34px;margin:-17px 0 0 -17px;border-radius:50%;background:rgba(255,255,255,.3);border:2px solid #fff;box-shadow:0 4px 14px rgba(0,0,0,.4);pointer-events:none;opacity:0;transition:left .38s cubic-bezier(.4,0,.2,1),top .38s cubic-bezier(.4,0,.2,1),transform .12s,opacity .2s}
+.finger.on{opacity:1}.finger.press{transform:scale(.72)}
+
+.phone{position:relative;width:412px;height:866px;flex:none;background:#000;border:11px solid #000;border-radius:46px;box-shadow:0 0 0 1.5px #2B4A40,0 34px 70px -22px rgba(0,0,0,.7)}
+.phone-in{position:absolute;inset:0;border-radius:36px;overflow:hidden;background:var(--ga-ob2);color-scheme:only dark}
+.island{position:absolute;top:10px;left:50%;transform:translateX(-50%);width:120px;height:34px;background:#000;border-radius:18px;z-index:160}
+.sbar{position:absolute;top:0;left:0;right:0;height:47px;z-index:150;display:flex;align-items:center;justify-content:space-between;padding:4px 30px 0 44px;font:600 16px/1 -apple-system,'SF Pro Text',Inter,sans-serif;color:#fff;pointer-events:none}
+.sbar .g{display:flex;gap:6px;align-items:center}
+.homebar{position:absolute;bottom:7px;left:50%;transform:translateX(-50%);width:134px;height:5px;border-radius:3px;background:#fff;z-index:150}
+.phone-in.light .sbar{color:#10241D}.phone-in.light .homebar{background:#10241D}
+
+/* ---- Galatea screens, prefixed scr- ---- */
+.scr{position:absolute;inset:0;display:flex;flex-direction:column;color:var(--ga-ink);font-family:-apple-system,'SF Pro Text',Inter,sans-serif;background:linear-gradient(180deg,var(--ga-ob1) 0%,var(--ga-ob2) 52%,var(--ga-ob3) 100%);transform:translateX(100%);transition:transform .36s cubic-bezier(.32,.72,0,1);z-index:1}
+.scr.is-active{transform:translateX(0);z-index:3}
+.scr.is-past{transform:translateX(-24%);z-index:2}
+.scr.nofx{transition:none}
+.scr-top{flex:none;padding:56px 20px 0;height:92px;display:flex;align-items:center;justify-content:space-between}
+.scr-back{width:36px;height:36px;display:grid;place-items:center;margin-left:-8px}
+.scr-body{flex:1;min-height:0;overflow-y:auto;overflow-x:hidden;scrollbar-width:none;position:relative}
+.scr-body::-webkit-scrollbar{display:none}
+.scr-foot{flex:none;padding:12px 20px 34px;position:relative}
+.scr-h{font-family:Newsreader,Georgia,serif;font-weight:300;font-size:33px;line-height:1.08;letter-spacing:-.005em}
+.scr-h em{font-style:italic;color:var(--ga-mint)}
+.scr-sub{font-size:16px;line-height:1.36;color:var(--ga-ink2);margin-top:12px}
+.scr-cta{width:100%;height:52px;border-radius:var(--r-pill);background:var(--ga-pink);color:#fff;font-size:18px;font-weight:600;letter-spacing:-.005em;transition:opacity .2s}
+.scr-cta[disabled]{opacity:.45}
+.scr-legal{font-size:12px;line-height:1.45;color:var(--ga-muted);text-align:center;margin-top:16px}
+.scr-legal u{text-decoration:underline}
+.scr-link{display:block;width:100%;text-align:center;margin-top:12px;font-size:15px;color:var(--ga-ink2);padding:4px}
+
+/* welcome */
+.scr-wel{background:var(--ga-ob2)}
+.scr-collage{position:absolute;left:0;right:0;top:0;height:620px;display:grid;grid-template-columns:repeat(3,1fr);gap:12px;padding:44px 18px 0;overflow:hidden}
+.scr-collage .c{display:flex;flex-direction:column;gap:12px}
+.scr-collage .c:nth-child(2){margin-top:-40px}
+.scr-collage img{width:100%;aspect-ratio:256/380;object-fit:cover;border-radius:7px}
+.scr-collage::after{content:'';position:absolute;inset:0;background:linear-gradient(180deg,rgba(5,27,20,.18) 0%,rgba(5,27,20,.25) 46%,rgba(5,27,20,.92) 78%,var(--ga-ob2) 96%)}
+.scr-mark{position:absolute;left:50%;top:104px;transform:translateX(-50%);z-index:2;height:30px;filter:drop-shadow(0 2px 10px rgba(0,0,0,.6))}
+.scr-wel .scr-body{display:flex;flex-direction:column;justify-content:flex-end;padding:0 20px 6px;position:relative;z-index:2}
+.scr-wel .scr-h{font-size:38px;font-weight:400}
+
+/* trope grid — their signature control */
+.scr-q .scr-body{padding:0 20px}
+.scr-tropes{display:grid;grid-template-columns:repeat(3,1fr);gap:18px 10px;margin:26px 0 24px}
+.scr-tr .ph{width:90px!important;height:90px!important}.scr-tr .ph img{width:84px!important;height:84px!important}
+.scr-tr{display:flex;flex-direction:column;align-items:center;gap:8px;text-align:center}
+.scr-tr .ph{position:relative;width:86px;height:86px;border-radius:50%;padding:3px;transition:box-shadow .15s}
+.scr-tr .ph img{width:80px;height:80px;border-radius:50%;display:block;object-fit:cover}
+.scr-tr.on .ph{box-shadow:inset 0 0 0 2.5px var(--ga-lav)}
+.scr-tr .ck{position:absolute;right:-1px;top:-1px;width:27px;height:27px;border-radius:50%;background:var(--ga-lav);display:none;place-items:center}
+.scr-tr.on .ck{display:grid}
+.scr-tr .ck::after{content:'';width:10px;height:5.5px;border-left:2.4px solid #10141C;border-bottom:2.4px solid #10141C;transform:rotate(-45deg) translate(1px,-1px)}
+.scr-tr b{font-size:13.5px;font-weight:600;line-height:1.25;color:#fff;max-width:112px}
+.scr-q .scr-foot{background:linear-gradient(180deg,rgba(3,18,13,0),var(--ga-ob3) 30%);margin-top:-30px;padding-top:30px;position:relative;z-index:2}
+
+/* loader */
+.scr-ld{background:#000}
+.scr-ld .scr-body{display:flex;flex-direction:column;justify-content:center;padding:0 22px 60px}
+.scr-ld .scr-h{font-size:34px}
+.scr-dot{position:absolute;border-radius:50%;background:#C0AAEA;box-shadow:0 0 24px 8px rgba(192,170,234,.18);animation:drift 7s ease-in-out infinite alternate;pointer-events:none}
+.scr-dot.g{background:#3A3940;box-shadow:none}
+@keyframes drift{from{transform:translate(0,0)}to{transform:translate(14px,-26px)}}
+.scr-ls{display:flex;flex-direction:column;gap:22px;margin-top:30px}
+.scr-ls div{display:flex;gap:12px;align-items:flex-start;font-size:16px;line-height:1.3;color:#fff;opacity:0;transform:translateY(6px);transition:opacity .35s,transform .35s}
+.scr-ls div.on{opacity:1;transform:none}
+.scr-ls svg{flex:none;width:20px;height:16px;margin-top:1px}
+
+/* payoff — their Home rows */
+.scr-pay .scr-body{padding:0 0 10px}
+.scr-pay .hd{padding:0 20px}
+.scr-row{margin-top:24px}
+.scr-row h4{font-size:16px;font-weight:700;color:#fff;padding:0 20px;display:flex;align-items:center;gap:6px}
+.scr-row h4 i{font-style:normal;color:var(--ga-muted);font-weight:500;font-size:13px}
+.scr-strip{display:flex;gap:10px;overflow-x:auto;padding:10px 20px 0;scrollbar-width:none}
+.scr-strip::-webkit-scrollbar{display:none}
+.scr-strip img{flex:none;width:98px;height:153px;object-fit:cover;border-radius:6px;box-shadow:0 8px 18px -10px rgba(0,0,0,.8)}
+
+/* paywall — their dark sheet */
+.scr-pw{background:var(--ga-pw)}
+.scr-pw .scr-top{padding:52px 20px 0;height:auto;flex-direction:column;align-items:stretch}
+.scr-pw .row1{display:flex;align-items:center;justify-content:space-between;height:26px}
+.scr-bv{display:flex;align-items:center;gap:5px;font-size:12px;font-weight:600;color:var(--ga-lime);padding-left:46px}
+.scr-bv i{width:7px;height:7px;border-radius:50%;background:var(--ga-lime)}
+.scr-x{width:30px;height:30px;display:grid;place-items:center;margin-right:-4px}
+.scr-segc{display:flex;background:var(--ga-seg);border-radius:var(--r-pill);padding:3px;margin-top:4px}
+.scr-segc button{flex:1;height:30px;border-radius:var(--r-pill);font-size:14px;font-weight:600;color:#A9A9AE}
+.scr-segc button.on{background:#fff;color:#1A1A1A}
+.scr-pw .scr-body{padding:0 16px}
+.scr-hero{position:relative;height:162px;margin:6px -16px 0;overflow:hidden}
+.scr-hero::before{content:'';position:absolute;left:50%;top:50%;width:300px;height:300px;transform:translate(-50%,-50%);border-radius:50%;background:radial-gradient(closest-side,rgba(26,163,95,.36),rgba(10,41,28,.5) 55%,transparent 100%)}
+.scr-hero img{position:absolute;top:22px;width:84px;height:131px;object-fit:cover;border-radius:6px;box-shadow:0 14px 30px -10px rgba(0,0,0,.9)}
+.scr-hero img:nth-child(1){left:calc(50% - 118px);transform:rotate(-9deg);top:28px}
+.scr-hero img:nth-child(2){left:calc(50% - 42px);z-index:2;top:14px}
+.scr-hero img:nth-child(3){left:calc(50% + 34px);transform:rotate(9deg);top:28px}
+.scr-pw.long .scr-pwh{font-size:19.5px}.scr-pw.long .scr-hero{height:118px}.scr-pw.long .scr-qt p{font-size:11.5px}.scr-pw.long .scr-plans{margin-top:10px}.scr-pw.long .scr-hero img{transform-origin:top;scale:.84}
+.scr-pwh{font-size:23px;line-height:1.2;font-weight:700;text-align:center;letter-spacing:-.01em;margin-top:4px;padding:0 6px}
+.scr-proof{display:flex;justify-content:center;gap:8px;margin-top:10px}
+.scr-proof span{font-size:12.5px;color:#E7E7EA;background:rgba(255,255,255,.07);border-radius:999px;padding:4px 10px;white-space:nowrap}
+.scr-proof b{color:var(--ga-lime);font-weight:700}
+.scr-stars{display:flex;justify-content:center;gap:3px;margin-top:12px}
+.scr-stars svg{width:17px;height:17px}
+.scr-qt{text-align:center;margin-top:4px}
+.scr-qt b{display:block;font-size:14px;font-weight:700}
+.scr-qt p{font-size:12px;line-height:1.38;color:#9C9CA1;margin:4px 14px 0}
+.scr-qt span{display:block;text-align:right;font-size:11.5px;color:#9C9CA1;margin-top:4px}
+.scr-plans{display:flex;flex-direction:column;gap:10px;margin:14px 0 4px}
+.scr-plan{display:flex;align-items:center;gap:12px;width:100%;min-height:68px;padding:10px 14px;border-radius:var(--r-ctl);background:var(--ga-card);border:1.5px solid #2C2C2E;text-align:left;color:#fff}
+.scr-plan.on{border-color:var(--ga-sel)}
+.scr-plan .rd{width:20px;height:20px;flex:none;border-radius:50%;border:1.5px solid #8E8E93;display:grid;place-items:center}
+.scr-plan.on .rd{background:var(--ga-sel);border-color:var(--ga-sel)}
+.scr-plan.on .rd::after{content:'';width:8px;height:4.5px;border-left:2px solid #fff;border-bottom:2px solid #fff;transform:rotate(-45deg) translate(1px,-1px)}
+.scr-plan .tx{flex:1;min-width:0}
+.scr-plan .nm{display:block;font-size:15.5px;font-weight:700}
+.scr-plan .tg{display:inline-block;margin-top:4px;font-size:11px;color:#C7C7CC;background:var(--ga-tag);border-radius:4px;padding:1px 6px}
+.scr-plan .pr{text-align:right;flex:none}
+.scr-plan .pr b{font-size:16px;font-weight:700}
+.scr-plan .pr b small{font-size:12px;font-weight:500;color:#C7C7CC}
+.scr-plan .pr span{display:block;font-size:10.5px;color:#8E8E93;margin-top:2px}
+.scr-pack{position:relative;display:flex;align-items:center;justify-content:space-between;width:100%;height:64px;padding:0 16px;border-radius:var(--r-ctl);border:1.5px solid var(--ga-line);background:transparent;font-size:15px;font-weight:600;color:#E5E5EA;margin-top:12px}
+.scr-pack.rec{border-color:#1D5B3B;margin-top:22px}
+.scr-pack .rt{position:absolute;left:12px;top:-11px;background:var(--ga-lime);color:#1A2A06;font-size:10.5px;font-weight:800;letter-spacing:.04em;border-radius:4px;padding:2px 7px}
+.scr-bal{display:flex;justify-content:space-between;font-size:14.5px;color:#C7C7CC;margin-top:12px}
+.scr-pw .scr-foot{padding:10px 16px 26px;background:var(--ga-pw)}
+.scr-gcta{width:100%;height:46px;border-radius:10px;background:var(--ga-green);color:#fff;font-size:16px;font-weight:600}
+.scr-fine{font-size:11.5px;line-height:1.4;text-align:center;color:#9C9CA1;margin-top:9px}
+.scr-fine u{text-decoration:underline}
+.scr-join{font-size:11.5px;text-align:center;color:var(--ga-lime);margin-top:4px}
+.scr-pay2{font-size:11.5px;text-align:center;color:#8E8E93;margin-top:10px}
+
+/* offer on close — sheet over the paywall */
+.scr-ofw{background:transparent;transform:none!important;transition:none;pointer-events:none;z-index:0}
+.scr-ofw.is-active{pointer-events:auto;z-index:6}
+.scr-ofw .dim{position:absolute;inset:0;background:rgba(0,0,0,.55);opacity:0;transition:opacity .3s}
+.scr-ofw.is-active .dim{opacity:1}
+.scr-of{position:absolute;left:0;right:0;bottom:0;background:var(--ga-card);border-radius:24px 24px 0 0;padding:10px 20px 30px;transform:translateY(105%);transition:transform .38s cubic-bezier(.32,.72,0,1)}
+.scr-ofw.is-active .scr-of{transform:none}
+.scr-ofw.nofx .scr-of,.scr-ofw.nofx .dim{transition:none}
+.scr-of .hdl{width:38px;height:5px;border-radius:3px;background:#48484A;margin:0 auto 18px}
+.scr-of .covs{display:flex;justify-content:center;margin-bottom:14px}
+.scr-of .covs img{width:62px;height:97px;object-fit:cover;border-radius:5px;margin:0 -8px;box-shadow:0 10px 20px -8px rgba(0,0,0,.9)}
+.scr-of .covs img:nth-child(1){transform:rotate(-8deg) translateY(6px)}.scr-of .covs img:nth-child(2){z-index:2}.scr-of .covs img:nth-child(3){transform:rotate(8deg) translateY(6px)}
+.scr-of h2{font-size:23px;line-height:1.2;font-weight:700;text-align:center;letter-spacing:-.01em}
+.scr-of .osub{font-size:14px;line-height:1.38;color:#AEAEB2;text-align:center;margin:8px 6px 0}
+.scr-of .scr-pack{margin-top:22px;background:#1A1A1A;border-color:var(--ga-sel)}
+.scr-of .scr-gcta{margin-top:16px}
+
+/* notifications — their onboarding chrome + the iOS dialog */
+.scr-nt .scr-body{display:flex;flex-direction:column;justify-content:center;padding:0 22px}
+.scr-nt .art{display:flex;justify-content:center;margin-bottom:30px}
+.scr-nt .card{width:300px;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.12);border-radius:20px;padding:13px 14px;display:grid;grid-template-columns:38px 1fr;gap:3px 11px;align-items:center;backdrop-filter:blur(10px)}
+.scr-nt .card img{grid-row:1/3;width:38px;height:38px;border-radius:9px}
+.scr-nt .card b{font-size:13.5px}
+.scr-nt .card span{font-size:13px;color:var(--ga-ink2);line-height:1.3}
+.scr-dlg{position:absolute;inset:0;z-index:20;background:rgba(0,0,0,.35);display:none;align-items:center;justify-content:center}
+.scr-dlg.on{display:flex}
+.scr-dlg .box{width:290px;border-radius:26px;background:rgba(235,235,240,.86);backdrop-filter:blur(30px);color:#000;padding:20px 18px 14px}
+.scr-dlg h5{font-size:17px;line-height:1.25;font-weight:600}
+.scr-dlg p{font-size:14px;line-height:1.3;color:#3C3C43;margin-top:6px}
+.scr-dlg .bt{display:flex;gap:10px;margin-top:16px}
+.scr-dlg .bt button{flex:1;height:44px;border-radius:22px;background:rgba(120,120,128,.18);font-size:16px;color:#000}
+.scr-dlg .bt button.ok{font-weight:600}
+.scr-toast{position:absolute;left:16px;right:16px;bottom:120px;background:rgba(255,255,255,.95);color:#10241D;font-size:14px;font-weight:500;padding:11px 14px;border-radius:12px;z-index:140;opacity:0;transition:opacity .25s;pointer-events:none;text-align:center}
+.scr-toast.show{opacity:1}
+
+/* light — approximated from your light reader theme */
+.phone-in.light{--ga-ob1:#F7F4EF;--ga-ob2:#F2EEE8;--ga-ob3:#ECE7E0;--ga-ink:#10241D;--ga-ink2:#3E4F48;--ga-muted:#6E7C76;--ga-mint:#1E8A63;--ga-pw:#F6F6F7;--ga-card:#FFFFFF;--ga-line:#DDDDE1;--ga-tag:#ECECEF;--ga-seg:#E4E4E8;background:#F2EEE8}
+.phone-in.light .scr-tr b,.phone-in.light .scr-row h4,.phone-in.light .scr-ls div{color:#10241D}
+.phone-in.light .scr-ld{background:#FBFAF7}
+.phone-in.light .scr-collage::after{background:linear-gradient(180deg,rgba(242,238,232,.1) 0%,rgba(242,238,232,.2) 46%,rgba(242,238,232,.94) 78%,#F2EEE8 96%)}
+.phone-in.light .scr-mark{filter:drop-shadow(0 2px 10px rgba(0,0,0,.6))}
+.phone-in.light .scr-q .scr-foot{background:linear-gradient(180deg,rgba(236,231,224,0),#ECE7E0 30%)}
+.phone-in.light .scr-pw,.phone-in.light .scr-pw .scr-foot{background:#F6F6F7}
+.phone-in.light .scr-pw,.phone-in.light .scr-plan,.phone-in.light .scr-of{color:#1A1A1A}
+.phone-in.light .scr-plan{border-color:#E1E1E5}
+.phone-in.light .scr-plan.on{border-color:var(--ga-sel)}
+.phone-in.light .scr-plan .tg{color:#55555A}
+.phone-in.light .scr-plan .pr b small{color:#6C6C70}
+.phone-in.light .scr-segc button{color:#6C6C70}
+.phone-in.light .scr-segc button.on{background:#1A1A1A;color:#fff}
+.phone-in.light .scr-pack{color:#1A1A1A}
+.phone-in.light .scr-of .scr-pack{background:#F6F6F7}
+.phone-in.light .scr-bal{color:#55555A}
+.phone-in.light .scr-proof span{background:rgba(0,0,0,.05);color:#2C2C2E}
+.phone-in.light .scr-proof b,.phone-in.light .scr-bv,.phone-in.light .scr-join{color:#4E7A12}
+.phone-in.light .scr-bv i{background:#6E9F1E}
+.phone-in.light .scr-x path,.phone-in.light .scr-back path{stroke:#10241D}
+.phone-in.light .scr-nt .card{background:#fff;border-color:#E6E1DA}
+.phone-in.light .scr-of .hdl{background:#D1D1D6}
+.phone-in.light .scr-dot.g{background:#D9D5CE}
+
+/* panel */
+.pn{padding:30px 32px 60px;color:var(--panel-ink)}
+.pn-n{font-size:10.5px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--accent-ink)}
+.pn-n.ctx{color:var(--panel-muted)}
+.pn-t{font-family:Newsreader,serif;font-size:29px;line-height:1.14;font-weight:400;letter-spacing:-.01em;margin:8px 0 0;color:var(--panel-ink)}
+.pn-hyp{font-size:15px;line-height:1.62;color:#2E3B36;margin:16px 0 0}
+.pn-hyp b{font-weight:700;color:var(--panel-ink)}
+.pn-out{margin-top:22px;border-top:1px solid var(--panel-line);padding-top:18px}
+.pn-out .lab{font-size:10px;font-weight:700;letter-spacing:.13em;text-transform:uppercase;color:var(--panel-muted)}
+.pn-out .v{font-size:31px;font-weight:800;letter-spacing:-.035em;color:var(--accent-ink);margin-top:7px;line-height:1}
+.pn-kept{margin-top:22px;font-size:12.5px;line-height:1.55;color:var(--panel-muted)}
+.pn-kept b{color:#2E3B36;font-weight:700}
+.pn-sep{height:1px;background:var(--panel-line);margin:26px 0}
+.pn-foot{font-size:11.5px;line-height:1.55;color:var(--panel-muted);border-top:1px solid var(--panel-line);padding-top:14px;margin-top:26px}
+.qr.side{width:412px;max-width:100%}
+
+/* on a phone: the prototype is the screen */
+@media(max-width:500px){
+  .phonecol{padding:12px 0 28px}
+  .phone{width:100vw;height:calc(100svh - 68px);min-height:640px;border:0;border-radius:0;box-shadow:none;order:2}
+  .phone-in{border-radius:0}
+  .island,.sbar,.homebar{display:none}
+  .scr-top{padding-top:16px;height:52px}
+  .scr-pw .scr-top{padding-top:14px}
+  .scr-collage{padding-top:10px}.scr-mark{top:64px}
+  .scr-foot{padding-bottom:18px}
+  .tools{order:1;padding:0 8px}.seg button{padding:6px 10px;font-size:12px}
+  .demo-cap{order:3;width:auto;align-self:stretch;margin:0 10px}
+  .demo-cap.on{position:fixed;left:10px;right:10px;bottom:10px;width:auto;z-index:250}
+  .chips{order:4;padding:0 12px}.chiphint{order:5}
+}
+</style>
+</head>
+<body>
+<div class="nav"><div class="nav-in"><img src="img/logo.svg" alt="Inkitt Galatea"><span class="lb">Growth Audit</span><div class="nav-links"><button class="on" data-view="over"><span class="n">1</span>Overview</button><button data-view="proto"><span class="n">2</span>Prototype</button></div></div></div>
+
+<!-- ======================= OVERVIEW ======================= -->
+<div class="view on" id="view-over">
+<div class="hero">
+  <div class="hero-grid" id="heroGrid" aria-hidden="true"></div>
+  <div class="wrap">
+  <div class="eyebrow">Growth Audit · October 2026</div>
+  <h1>Inkitt <em>Galatea</em></h1>
+  <p class="lede">Five ideas to unlock more revenue from the readers you already have.</p>
+  <div class="meta">Prepared by <b>Adapty</b> · based on your live iOS flow, galatea.com and your App Store listing</div>
+  <div class="herobtns">
+    <button class="pillbtn pink" data-view="proto">Open the prototype <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button>
+    <button class="pillbtn ghost" id="heroDemo"><svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><path d="M7 4.5v15l12-7.5z"/></svg>Watch the 30-second walkthrough</button>
+  </div>
+  <div class="stats">
+    <div class="stat"><b>30,000+</b><span>apps run subscriptions<br>on Adapty</span></div>
+    <div class="stat"><b>5</b><span>ideas, each rebuilt<br>as a working screen</span></div>
+    <div class="stat"><b>0</b><span>design changes<br>to your art direction</span></div>
+  </div>
+  <div class="fb">
+    <div class="fb-k">Built in Adapty Flow Builder</div>
+    <div class="fb-i"><span class="tick"><svg viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></svg></span><p><b>Millions of dollars</b> in subscription revenue pass through Flow Builder every month.</p></div>
+    <div class="fb-i"><span class="tick"><svg viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></svg></span><p><b>Nearly 500 apps</b> actively build their paywalls and onboarding in it — plenty of them past $100K MRR.</p></div>
+  </div>
+  </div>
+</div>
+
+<div class="sec"><div class="wrap">
+  <div class="sec-k">What this is</div>
+  <h2>We joined Galatea like a new reader, and looked for the gaps between what you <em>know</em> and what you show.</h2>
+  <p class="body">Adapty powers subscriptions for <b>30,000+ apps</b>, so we see what moves conversion across the market, not inside one app. We installed Galatea, went through the welcome and the trope quiz, read a first book, made an account and reached your paywall at a locked chapter. Then we read your App Store listing and galatea.com.</p>
+  <p class="body">Your quiz asks the best question in the category: <b>which tropes does she love?</b> Today almost nothing between that answer and the paywall uses it.</p>
+  <div class="notes">
+    <div class="note"><h4>We did not redesign your app</h4><p>Every screen is yours: the green wash, the serif headlines with the mint italic, the round trope photos, the pink buttons, the dark Unlimited sheet and its green button. Only the sequence and the words change.</p></div>
+    <div class="note"><h4>You may have tested some of this</h4><p>We are working from the outside, so we cannot see your experiment history. If you have already run one of these, tell us and we will go deeper on the rest.</p></div>
+  </div>
+</div></div>
+
+<div class="sec" style="padding-top:0"><div class="wrap">
+  <div class="sec-k">The five ideas</div>
+  <h2>Five ideas with the highest potential, ranked by what we would <em>test first</em>.</h2>
+  <p class="body">Each one opens the prototype on the screen that shows it.</p>
+  <div class="ideas">
+    <button class="idea" data-go="offer"><span class="ic"><img src="img/t/spicy.png" alt=""><span class="no">1</span></span><span>
+      <h3>Catch the close with your 110-point pack</h3>
+      <p>Closing Unlimited today sends a reader back to a locked chapter. A second sheet now offers the 110-point pack you already mark Recommended, at $7.99: a much smaller first purchase than $69.99 a year.</p>
+      <span class="seeit">See the screen →</span></span>
+      <span class="out"><b>ARPU +10–15%</b><span>from a second chance</span></span></button>
+    <button class="idea" data-go="paywall"><span class="ic"><img src="img/t/enemies.png" alt=""><span class="no">2</span></span><span>
+      <h3>Show Unlimited after the quiz, named after her tropes</h3>
+      <p>A new reader picks Enemies to Lovers and Bad Boys, then first meets “Unlock unlimited access to all stories” at a locked chapter, after making an account. The paywall now comes right after her first shelf: “Unlock unlimited Enemies to Lovers &amp; Bad Boys”.</p>
+      <span class="seeit">See the screen →</span></span>
+      <span class="out"><b>CR +15–20%</b><span>to purchase</span></span></button>
+    <button class="idea" data-go="loader"><span class="ic"><img src="img/t/badboys.png" alt=""><span class="no">3</span></span><span>
+      <h3>Let the loader and a first shelf use the quiz</h3>
+      <p>“Evaluating all fictional crushes” is the same for every reader, whatever she picked. The loader now names her tropes, and a first shelf of your own Enemies to Lovers and Bad Boys titles appears before any paywall.</p>
+      <span class="seeit">See the screen →</span></span>
+      <span class="out"><b>CR +10–15%</b><span>to purchase</span></span></button>
+    <button class="idea" data-go="notify"><span class="ic"><img src="img/t/happy.png" alt=""><span class="no">4</span></span><span>
+      <h3>Ask for notifications after the paywall</h3>
+      <p>The system prompt fires the moment someone taps Continue on the quiz, before she has seen a single book. It now comes after the paywall, behind your own “Never Miss New Releases and Updates”.</p>
+      <span class="seeit">See the screen →</span></span>
+      <span class="out"><b>CR +10–15%</b><span>to purchase</span></span></button>
+    <button class="idea" data-go="paywall"><span class="ic"><img src="img/t/nextdoor.png" alt=""><span class="no">5</span></span><span>
+      <h3>Put your 299K ratings next to the price</h3>
+      <p>Your paywall carries one quote and a small “5 million readers” line under the legal text. Your 4.6 from 299K App Store ratings and the 15 million women from your listing now sit right above the plans.</p>
+      <span class="seeit">See the screen →</span></span>
+      <span class="out"><b>CR +10–15%</b><span>to purchase</span></span></button>
+  </div>
+  <div class="band">
+    <div class="txt"><div class="lab">Potential outcome</div><p>Together, the five turn the trope quiz into the reason to subscribe: her picks on the loader, on a first shelf and in the paywall headline, your proof at the price, and a smaller second offer when she closes it.</p></div>
+    <div class="nums"><div><b>up to +20%</b><span>CR to purchase</span></div><div><b>up to +15%</b><span>ARPU</span></div></div>
+  </div>
+  <div class="cta-row">
+    <button class="pillbtn pink" data-view="proto">Open the prototype <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button>
+    <div class="qr"><img src="img/qr.svg" alt="QR code to the prototype"><div><b>Open it on your phone</b><span>Scan to try the flow in your hand.</span></div></div>
+  </div>
+</div></div>
+<div class="foot"><div class="wrap">Impact ranges are Adapty’s expected effect from teardowns and A/B tests across subscription apps — not measured lift for Inkitt. Every price, rating, quote, trope and title here comes from Galatea’s own in-app screens, galatea.com and its App Store listing.</div></div>
+</div><!-- /view-over -->
+
+<!-- ======================= PROTOTYPE ======================= -->
+<div class="view" id="view-proto">
+<div class="stage">
+  <div class="phonecol">
+    <div class="tools">
+      <div class="seg" id="segLang"><button data-l="en" class="on">EN</button><button data-l="de">DE</button><button data-l="pt">PT</button></div>
+      <div class="seg" id="segTheme"><button data-th="light">Light</button><button data-th="dark" class="on">Dark</button></div>
+      <div class="seg demo"><button id="demoBtn"><svg width="10" height="10" viewBox="0 0 24 24" fill="currentColor"><path d="M7 4.5v15l12-7.5z"/></svg>30-sec walkthrough</button></div>
+    </div>
+    <div class="demo-cap" id="demoCap"><span id="demoTxt"></span><div class="bar"><i id="demoBar"></i></div></div>
+
+    <div class="phone">
+      <div class="phone-in" id="phoneIn">
+        <div class="island"></div>
+        <div class="sbar" id="sbar"><span>9:41</span><span class="g">
+          <svg width="18" height="12" viewBox="0 0 18 12" fill="currentColor"><rect x="0" y="8" width="3" height="4" rx="1"/><rect x="5" y="5.5" width="3" height="6.5" rx="1"/><rect x="10" y="3" width="3" height="9" rx="1"/><rect x="15" y="0" width="3" height="12" rx="1" opacity=".35"/></svg>
+          <svg width="16" height="12" viewBox="0 0 16 12" fill="currentColor"><path d="M8 2.2c2.3 0 4.4.9 6 2.4l1.3-1.3A10.3 10.3 0 0 0 8 .3 10.3 10.3 0 0 0 .7 3.3L2 4.6a8.4 8.4 0 0 1 6-2.4Zm0 3.7c1.3 0 2.5.5 3.4 1.3l1.3-1.3A6.6 6.6 0 0 0 8 4a6.6 6.6 0 0 0-4.7 1.9l1.3 1.3C5.5 6.4 6.7 5.9 8 5.9Zm0 3.6c.5 0 1 .2 1.3.5L8 11.3 6.7 10c.3-.3.8-.5 1.3-.5Z"/></svg>
+          <svg width="27" height="13" viewBox="0 0 27 13" fill="none"><rect x=".5" y=".5" width="23" height="12" rx="3.5" stroke="currentColor" opacity=".4"/><rect x="2" y="2" width="18" height="9" rx="2" fill="currentColor"/><path d="M25 4.5v4c.8-.3 1.3-1.1 1.3-2s-.5-1.7-1.3-2Z" fill="currentColor" opacity=".45"/></svg></span></div>
+        <div class="homebar"></div>
+
+        <!-- 1 welcome -->
+        <section class="scr scr-wel is-active" data-id="welcome">
+          <div class="scr-collage" id="collage"></div>
+          <img class="scr-mark" src="img/logo.svg" alt="Galatea">
+          <div class="scr-body"><h1 class="scr-h" data-t="wH"></h1><p class="scr-sub" data-t="wS"></p></div>
+          <div class="scr-foot" style="z-index:2"><button class="scr-cta" data-next data-t="wCta"></button><p class="scr-legal" data-t="wLegal"></p></div>
+        </section>
+
+        <!-- 2 tropes -->
+        <section class="scr scr-q" data-id="tropes">
+          <div class="scr-top"><span></span></div>
+          <div class="scr-body" id="tropeBody">
+            <h1 class="scr-h" data-t="qH"></h1><p class="scr-sub" data-t="qS"></p>
+            <div class="scr-tropes" id="tropeGrid"></div>
+          </div>
+          <div class="scr-foot"><button class="scr-cta" id="tropeCta" data-next data-t="cont"></button></div>
+        </section>
+
+        <!-- 3 loader -->
+        <section class="scr scr-ld" data-id="loader">
+          <span class="scr-dot" style="left:268px;top:118px;width:14px;height:14px"></span><span class="scr-dot g" style="left:312px;top:166px;width:11px;height:11px"></span>
+          <span class="scr-dot" style="left:118px;top:560px;width:12px;height:12px;animation-delay:-2s"></span><span class="scr-dot g" style="left:170px;top:640px;width:12px;height:12px"></span>
+          <span class="scr-dot" style="left:226px;top:668px;width:7px;height:7px;animation-delay:-4s"></span><span class="scr-dot" style="left:370px;top:500px;width:6px;height:6px"></span>
+          <div class="scr-body"><h1 class="scr-h" data-t="lH"></h1>
+            <div class="scr-ls" id="loadSteps"><div><svg viewBox="0 0 20 16"><path d="M2 8l6 6L18 2" stroke="#C6176B" stroke-width="2.4" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg><span id="l1"></span></div><div><svg viewBox="0 0 20 16"><path d="M2 8l6 6L18 2" stroke="#C6176B" stroke-width="2.4" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg><span id="l2"></span></div><div><svg viewBox="0 0 20 16"><path d="M2 8l6 6L18 2" stroke="#C6176B" stroke-width="2.4" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg><span id="l3"></span></div></div>
+          </div>
+        </section>
+
+        <!-- 4 payoff: first shelf -->
+        <section class="scr scr-pay" data-id="payoff">
+          <div class="scr-top"><span></span></div>
+          <div class="scr-body" id="payBody"><div class="hd"><h1 class="scr-h" data-t="pH"></h1><p class="scr-sub" id="pS"></p></div><div id="rows"></div></div>
+          <div class="scr-foot"><button class="scr-cta" data-next data-t="pCta"></button></div>
+        </section>
+
+        <!-- 5 paywall -->
+        <section class="scr scr-pw" data-id="paywall">
+          <div class="scr-top">
+            <div class="row1"><span class="scr-bv"><i></i><span data-t="best"></span></span><button class="scr-x" id="pwX" aria-label="Close"><svg width="16" height="16" viewBox="0 0 16 16"><path d="M2 2l12 12M14 2 2 14" stroke="#fff" stroke-width="1.8" stroke-linecap="round"/></svg></button></div>
+            <div class="scr-segc" id="pwSeg"><button data-tab="u" class="on" data-t="segU"></button><button data-tab="b" data-t="segB"></button></div>
+          </div>
+          <div class="scr-body" id="pwBody">
+            <div id="tabU">
+              <div class="scr-hero" id="pwHero"></div>
+              <h1 class="scr-pwh" id="pwH"></h1>
+              <div class="scr-proof" id="pwProof"></div>
+              <div class="scr-stars"><svg viewBox="0 0 24 24"><path d="M12 2.6l2.9 6 6.5.8-4.8 4.5 1.2 6.5L12 17.2l-5.8 3.2 1.2-6.5L2.6 9.4l6.5-.8z" fill="#FFD60A"/></svg><svg viewBox="0 0 24 24"><path d="M12 2.6l2.9 6 6.5.8-4.8 4.5 1.2 6.5L12 17.2l-5.8 3.2 1.2-6.5L2.6 9.4l6.5-.8z" fill="#FFD60A"/></svg><svg viewBox="0 0 24 24"><path d="M12 2.6l2.9 6 6.5.8-4.8 4.5 1.2 6.5L12 17.2l-5.8 3.2 1.2-6.5L2.6 9.4l6.5-.8z" fill="#FFD60A"/></svg><svg viewBox="0 0 24 24"><path d="M12 2.6l2.9 6 6.5.8-4.8 4.5 1.2 6.5L12 17.2l-5.8 3.2 1.2-6.5L2.6 9.4l6.5-.8z" fill="#FFD60A"/></svg><svg viewBox="0 0 24 24"><path d="M12 2.6l2.9 6 6.5.8-4.8 4.5 1.2 6.5L12 17.2l-5.8 3.2 1.2-6.5L2.6 9.4l6.5-.8z" fill="#FFD60A"/></svg></div>
+              <div class="scr-qt"><b>Truly Amazing</b><p>No more waiting, and all chapters are free. Absolutely thrilled with the experience! It’s undeniably the best decision I’ve made this year!</p><span>Amy Mitchell</span></div>
+              <div class="scr-plans" id="pwPlans"></div>
+            </div>
+            <div id="tabB" style="display:none">
+              <div class="scr-bal"><span data-t="bal"></span><span>10 <span data-t="pts"></span></span></div>
+              <div id="packs"></div>
+            </div>
+          </div>
+          <div class="scr-foot">
+            <div id="footU"><button class="scr-gcta" id="pwCta" data-t="cta"></button><p class="scr-fine" data-t="legal"></p><p class="scr-join">♥ <span data-t="join"></span></p><p class="scr-pay2" id="pwPay"></p></div>
+            <div id="footB" style="display:none"><p class="scr-pay2" data-t="payB"></p></div>
+          </div>
+        </section>
+
+        <!-- 6 offer on close -->
+        <section class="scr scr-ofw" data-id="offer" data-overlay="1">
+          <div class="dim" id="ofDim"></div>
+          <div class="scr-of">
+            <div class="hdl"></div>
+            <div class="covs" id="ofCovs"></div>
+            <h2 data-t="oH"></h2>
+            <p class="osub" id="oS"></p>
+            <div class="scr-bal"><span data-t="bal"></span><span>10 <span data-t="pts"></span></span></div>
+            <button class="scr-pack rec" style="margin-top:22px" id="ofPack"><span class="rt" data-t="rec"></span><span>110 <span data-t="pts"></span></span><span>$7.99</span></button>
+            <button class="scr-gcta" id="ofCta" data-t="oCta"></button>
+            <button class="scr-link" id="ofNo" data-t="oNo"></button>
+          </div>
+        </section>
+
+        <!-- 7 notifications -->
+        <section class="scr scr-nt" data-id="notify">
+          <div class="scr-top"><span></span></div>
+          <div class="scr-body">
+            <div class="art"><div class="card"><img src="img/icon.png" alt=""><b>GALATEA</b><span id="ntCard"></span></div></div>
+            <h1 class="scr-h" data-t="nH"></h1><p class="scr-sub" data-t="nS"></p>
+          </div>
+          <div class="scr-foot"><button class="scr-cta" id="ntCta" data-t="nCta"></button><button class="scr-link" id="ntNo" data-t="oNo"></button></div>
+          <div class="scr-dlg" id="dlg"><div class="box"><h5 data-t="dH"></h5><p data-t="dP"></p><div class="bt"><button id="dNo" data-t="dNo"></button><button class="ok" id="dOk" data-t="dOk"></button></div></div></div>
+        </section>
+
+        <div class="scr-toast" id="toast"></div>
+      </div>
+    </div>
+
+    <div class="chips" id="chips"></div>
+    <p class="chiphint">Jump to any screen — answers already filled in.</p>
+    <div class="qr side"><img src="img/qr.svg" alt="QR code to the prototype"><div><b>Open it on your phone</b><span>Scan to try the flow in your hand.</span></div></div>
+  </div>
+  <aside class="panelcol"><div class="pn" id="panel"></div></aside>
+</div>
+</div><!-- /view-proto -->
+<div class="finger" id="finger"></div>
+
+<script>
+var $=function(s){return document.querySelector(s);}, $$=function(s){return [].slice.call(document.querySelectorAll(s));};
+var LANGS=['en','de','pt'];
+/* your 15 tropes, in your order, with the photos from your quiz */
+var TROPES=[
+ ['wolves',['Werewolves & Shifters','Werwölfe & Gestaltwandler','Lobisomens e Metamorfos'],'mates'],
+ ['billionaires',['Billionaires','Milliardäre','Bilionários']],
+ ['enemies',['Enemies to Lovers','Von Feinden zu Liebenden','De Inimigos a Amantes'],'enemies'],
+ ['proximity',['Forced Proximity','Erzwungene Nähe','Proximidade Forçada']],
+ ['highschool',['High School','Highschool','Ensino Médio']],
+ ['spicy',['Spicy','Spicy','Picante']],
+ ['forbidden',['Forbidden Romance','Verbotene Liebe','Romance Proibido']],
+ ['happy',['Happy Endings','Happy Ends','Finais Felizes']],
+ ['badboys',['Bad Boys','Bad Boys','Bad Boys'],'badboys'],
+ ['grey',['Morally Grey Men','Moralisch graue Männer','Homens Moralmente Cinzentos']],
+ ['grumpy',['Grumpy x Sunshine','Grumpy x Sunshine','Ranzinza x Solar']],
+ ['agegap',['Age Gap','Altersunterschied','Diferença de Idade']],
+ ['nextdoor',['Girl Next Door','Girl Next Door','Garota da Porta ao Lado']],
+ ['harem',['Reverse Harem','Reverse Harem','Harém Reverso']],
+ ['plus',['Plus Size Heroine','Plus-Size-Heldin','Heroína Plus Size']]
+];
+var TR={}; TROPES.forEach(function(t){ TR[t[0]]=t; });
+/* shelves are galatea.com's own sections and titles */
+var SHELF={
+ enemies:{n:'Enemies to Lovers',b:[['The Alpha Princess','the-alpha-princess'],['Keily','keily'],['The Millennium Wolves','the-millennium-wolves'],['Chasing Kiarra','chasing-kiarra'],['Grayson','grayson']]},
+ badboys:{n:'Bad Boys',b:[['Grayson','grayson'],['The Drake Twins','the-drake-twins'],['Stockholm Syndrome','stockholm-syndrome'],["I Accidentally Stole The Bad Boy's First",'i-accidentally-stole-the-bad-boy-s-first'],['The Irish Syndicate','the-irish-syndicate-book-1-our-wicked-cr']]},
+ mates:{n:'Fated Mates',b:[['The Marked Mate','the-marked-mate'],['Auctioned Omega','auctioned-omega'],['The Awakening Series','the-awakening-series'],["Alpha King's Hybrid Mate",'alpha-king-s-hybrid-mate'],['Running from the Mate Bond','running-from-the-mate-bond-book-1-ella']]},
+ alpha:{n:'Alpha Males',b:[['Test Subject','test-subject'],['Luna Graced','luna-graced'],['Broken','broken'],['Kidnapped by My Mate','kidnapped-by-my-mate'],['Owned by the Alphas','owned-by-the-alphas']]}
+};
+var COLLAGE=[['the-perfect-spiral','keily','two-years-gone'],['kidnapped-by-my-mate','life-is-not-a-game','luna-graced','test-subject'],['owned-by-the-alphas','broken','the-marked-mate']];
+var T={
+ wH:['20 Million Women Find Their <em>Me-Time</em> on Galatea','20 Millionen Frauen finden ihre <em>Me-Time</em> auf Galatea','20 milhões de mulheres encontram seu <em>momento</em> no Galatea'],
+ wS:['Get absorbed in our deep collection of delicious romance best-sellers.','Tauche ein in unsere riesige Auswahl an köstlichen Romance-Bestsellern.','Mergulhe na nossa coleção de best-sellers de romance deliciosos.'],
+ wCta:['Get Started','Los geht’s','Começar'],
+ wLegal:['By continuing, you agree to our <u>Terms of Service</u> / <u>Privacy Policy</u>. You may receive emails from us and can opt out at any time.','Mit dem Fortfahren stimmst du unseren <u>Nutzungsbedingungen</u> / <u>Datenschutzrichtlinien</u> zu. Du erhältst eventuell E-Mails von uns und kannst sie jederzeit abbestellen.','Ao continuar, você concorda com nossos <u>Termos de Serviço</u> / <u>Política de Privacidade</u>. Você pode receber e-mails nossos e cancelar quando quiser.'],
+ qH:['What are your favorite <em>genres and tropes</em>?','Was sind deine liebsten <em>Genres und Tropes</em>?','Quais são seus <em>gêneros e tropes</em> favoritos?'],
+ qS:['Pick at least 1 you love (or love to hate) and we’ll find your perfect match.','Wähle mindestens 1, das du liebst (oder gern hasst), und wir finden dein perfektes Match.','Escolha pelo menos 1 que você ama (ou ama odiar) e encontraremos seu par perfeito.'],
+ cont:['Continue','Weiter','Continuar'],
+ lH:['Browsing thousands of books to customize your <em>happily ever after</em>','Wir durchsuchen Tausende Bücher für dein ganz persönliches <em>Happy End</em>','Explorando milhares de livros para personalizar o seu <em>felizes para sempre</em>'],
+ l1:['Shortlisting {A} and {B}','{A} und {B} kommen in die engere Wahl','Selecionando {A} e {B}'],
+ l1one:['Shortlisting {A}','{A} kommt in die engere Wahl','Selecionando {A}'],
+ l2:['Fine-tuning the romantic chemistry','Die romantische Chemie wird feinjustiert','Ajustando a química romântica'],
+ l3:['Sending sparks flying for your first {A} story','Funken sprühen für deine erste Geschichte: {A}','Faíscas voando na sua primeira história de {A}'],
+ pH:['Your first shelf is <em>ready</em>','Dein erstes Regal ist <em>fertig</em>','Sua primeira estante está <em>pronta</em>'],
+ pS:['Picked from the {N} tropes you love.','Ausgewählt nach deinen {N} Lieblings-Tropes.','Escolhida a partir dos {N} tropes que você ama.'],
+ pS1:['Picked from the trope you love.','Ausgewählt nach deinem Lieblings-Trope.','Escolhida a partir do trope que você ama.'],
+ rowFor:['for {T} fans','für Fans von {T}','para fãs de {T}'],
+ pCta:['Start reading','Jetzt lesen','Começar a ler'],
+ best:['Best Value','Bestes Angebot','Melhor valor'],
+ segU:['Unlimited Reading','Unbegrenzt lesen','Leitura ilimitada'], segB:['Buy Chapters','Kapitel kaufen','Comprar capítulos'],
+ hP:['Unlock unlimited {A} &amp; {B}','Unbegrenzt {A} &amp; {B} freischalten','Desbloqueie {A} e {B} sem limites'],
+ hP1:['Unlock unlimited {A}','Unbegrenzt {A} freischalten','Desbloqueie {A} sem limites'],
+ proof:['<b>★ 4.6</b> from 299K ratings','<b>★ 4,6</b> aus 299K Bewertungen','<b>★ 4,6</b> de 299 mil avaliações'],
+ proof2:['<b>15M</b> women read here','<b>15 Mio.</b> Frauen lesen hier','<b>15 mi</b> de mulheres leem aqui'],
+ ind:['Individual','Einzeln','Individual'], tag1:['1 account','1 Konto','1 conta'],
+ ff:['Friends & Family','Freunde & Familie','Amigos e Família'], tag2:['Up to 5 accounts','Bis zu 5 Konten','Até 5 contas'],
+ mo:['/ mo','/ Mon.','/ mês'], mou:['/ mo / user','/ Mon. / Nutzer','/ mês / usuário'],
+ by1:['Billed yearly $69.99','Jährlich $69.99','Cobrado anualmente $69.99'], by2:['Billed yearly $99.99','Jährlich $99.99','Cobrado anualmente $99.99'],
+ cta:['Get Unlimited Access','Unbegrenzten Zugang holen','Obter acesso ilimitado'],
+ legal:['By subscribing, you agree to our <u>Terms of Service</u>','Mit dem Abo stimmst du unseren <u>Nutzungsbedingungen</u> zu','Ao assinar, você concorda com nossos <u>Termos de Serviço</u>'],
+ join:['Join the 5 million readers supporting Galatea’s authors!','Schließ dich den 5 Millionen Leserinnen an, die Galateas Autorinnen unterstützen!','Junte-se aos 5 milhões de leitoras que apoiam as autoras do Galatea!'],
+ pay1:['Pay in the App Store ($69.99/yr)','Bezahlung im App Store ($69.99/Jahr)','Pague na App Store ($69.99/ano)'],
+ pay2:['Pay in the App Store ($99.99/yr)','Bezahlung im App Store ($99.99/Jahr)','Pague na App Store ($99.99/ano)'],
+ payB:['Pay in the App Store','Bezahlung im App Store','Pague na App Store'],
+ bal:['Your balance:','Dein Guthaben:','Seu saldo:'], pts:['Points','Punkte','Pontos'], rec:['RECOMMENDED','EMPFOHLEN','RECOMENDADO'],
+ oH:['Not ready for a whole year?','Noch nicht bereit für ein ganzes Jahr?','Ainda não quer um ano inteiro?'],
+ oS:['Keep reading {A} with points, and support the authors you love chapter by chapter.','Lies {A} mit Punkten weiter und unterstütze deine Lieblingsautorinnen Kapitel für Kapitel.','Continue lendo {A} com pontos e apoie as autoras que você ama, capítulo por capítulo.'],
+ oCta:['Get 110 Points · $7.99','110 Punkte holen · $7.99','Obter 110 pontos · $7.99'],
+ oNo:['Not now','Nicht jetzt','Agora não'],
+ nH:['Never Miss <em>New Releases</em> and Updates','Verpasse keine <em>Neuerscheinungen</em> und Updates','Não perca nenhum <em>lançamento</em> nem novidade'],
+ nS:['Hear first when the stories on your shelf get new chapters, plus free points and picks for you.','Erfahre als Erste, wenn Geschichten in deinem Regal neue Kapitel bekommen, dazu Gratis-Punkte und Empfehlungen.','Saiba primeiro quando as histórias da sua estante ganharem capítulos novos, além de pontos grátis e indicações.'],
+ ntCard:['A new chapter of {B} is out.','Ein neues Kapitel von {B} ist da.','Saiu um novo capítulo de {B}.'],
+ nCta:['Turn on notifications','Benachrichtigungen aktivieren','Ativar notificações'],
+ dH:['“GALATEA” Would Like to Send You Notifications','„GALATEA“ möchte dir Mitteilungen senden','“GALATEA” Gostaria de Enviar Notificações'],
+ dP:['Notifications may include alerts, sounds, and icon badges. These can be configured in Settings.','Mitteilungen können Hinweise, Töne und Kennzeichensymbole enthalten. Diese können in den Einstellungen konfiguriert werden.','As notificações podem incluir alertas, sons e indicadores de ícone. Elas podem ser configuradas em Ajustes.'],
+ dNo:['Don’t Allow','Nicht erlauben','Não Permitir'], dOk:['Allow','Erlauben','Permitir'],
+ tBuy:['App Store purchase sheet opens here','Hier öffnet sich das App-Store-Kaufblatt','Aqui abre a folha de compra da App Store'],
+ tDone:['Her first book opens here','Hier öffnet sich ihr erstes Buch','Aqui abre o primeiro livro dela']
+};
+var S={lang:'en',theme:'dark',tropes:['enemies','proximity','highschool','happy','badboys'],plan:'ind',tab:'u'};
+function L(){ return LANGS.indexOf(S.lang); }
+function tn(k,i){ return TR[k][1][i==null?L():i]; }
+/* her picks, the ones with a shelf first, then in your order */
+function picks(){ var p=S.tropes.slice(); p.sort(function(a,b){ return (TR[b][2]?1:0)-(TR[a][2]?1:0) || TROPES.indexOf(TR[a])-TROPES.indexOf(TR[b]); }); return p; }
+function shelves(){ var s=[]; picks().forEach(function(k){ var sh=TR[k][2]; if(sh&&s.length<3&&!s.some(function(x){return x.key===sh;})) s.push({key:sh,from:k}); }); if(s.length<3) s.push({key:'alpha'}); return s; }
+function heroCovers(){ var s=shelves()[0], b=SHELF[s.key].b; return [b[1],b[0],b[2]]; }
+function apply(){ var i=L(); $$('[data-t]').forEach(function(e){ var v=T[e.dataset.t]; if(v) e.innerHTML=v[i]; }); }
+
+function syncScreen(){
+  var i=L(), p=picks(), A=tn(p[0]), B=p[1]?tn(p[1]):null;
+  var pin=$('#phoneIn'); pin.classList.toggle('light',S.theme==='light');
+  /* tropes */
+  $$('#tropeGrid .scr-tr').forEach(function(b){ b.classList.toggle('on',S.tropes.indexOf(b.dataset.k)>-1); b.querySelector('b').textContent=tn(b.dataset.k); });
+  $('#tropeCta').disabled=!S.tropes.length;
+  /* loader */
+  $('#l1').textContent=(B?T.l1[i].replace('{A}',A).replace('{B}',B):T.l1one[i].replace('{A}',A));
+  $('#l2').textContent=T.l2[i]; $('#l3').textContent=T.l3[i].replace('{A}',A);
+  /* payoff */
+  $('#pS').textContent=p.length>1?T.pS[i].replace('{N}',p.length):T.pS1[i];
+  $('#rows').innerHTML=shelves().map(function(s){ var sh=SHELF[s.key];
+    return '<div class="scr-row"><h4>'+sh.n+(s.from&&sh.n!==tn(s.from,0)?' <i>'+T.rowFor[i].replace('{T}',tn(s.from))+'</i>':'')+'</h4><div class="scr-strip">'+sh.b.map(function(b){ return '<img src="img/c/'+b[1]+'.jpg" alt="'+b[0].replace(/"/g,'')+'">'; }).join('')+'</div></div>'; }).join('');
+  /* paywall */
+  var hc=heroCovers();
+  $('#pwHero').innerHTML=hc.map(function(b){ return '<img src="img/c/'+b[1]+'.jpg" alt="">'; }).join('');
+  $('#pwH').innerHTML=B?T.hP[i].replace('{A}',A).replace('{B}',B):T.hP1[i].replace('{A}',A);
+  $('#pwProof').innerHTML='<span>'+T.proof[i]+'</span><span>'+T.proof2[i]+'</span>';
+  $('#pwPlans').innerHTML=
+    '<button class="scr-plan'+(S.plan==='ind'?' on':'')+'" data-plan="ind"><span class="rd"></span><span class="tx"><span class="nm">'+T.ind[i]+'</span><span class="tg">'+T.tag1[i]+'</span></span><span class="pr"><b>$5.83<small>'+T.mo[i]+'</small></b><span>'+T.by1[i]+'</span></span></button>'+
+    '<button class="scr-plan'+(S.plan==='ff'?' on':'')+'" data-plan="ff"><span class="rd"></span><span class="tx"><span class="nm">'+T.ff[i]+'</span><span class="tg">'+T.tag2[i]+'</span></span><span class="pr"><b>$1.67<small>'+T.mou[i]+'</small></b><span>'+T.by2[i]+'</span></span></button>';
+  $$('#pwPlans .scr-plan').forEach(function(b){ b.onclick=function(){ S.plan=b.dataset.plan; syncScreen(); }; });
+  var pw=scr.paywall; pw.classList.remove('long'); if(S.tab==='u'){ var bd=$('#pwBody'); if(bd.scrollHeight-bd.clientHeight>4) pw.classList.add('long'); }
+  $('#pwPay').textContent=S.plan==='ind'?T.pay1[i]:T.pay2[i];
+  var pk=[[40,'$3.99'],[110,'$7.99',1],[250,'$13.99'],[550,'$24.99']];
+  $('#packs').innerHTML=pk.map(function(x){ return '<button class="scr-pack'+(x[2]?' rec':'')+'">'+(x[2]?'<span class="rt">'+T.rec[i]+'</span>':'')+'<span>'+x[0]+' '+T.pts[i]+'</span><span>'+x[1]+'</span></button>'; }).join('');
+  $$('#packs .scr-pack').forEach(function(b){ b.onclick=function(){ toast(T.tBuy[L()]); }; });
+  $$('#pwSeg button').forEach(function(b){ b.classList.toggle('on',b.dataset.tab===S.tab); });
+  $('#tabU').style.display=S.tab==='u'?'':'none'; $('#tabB').style.display=S.tab==='b'?'':'none';
+  $('#footU').style.display=S.tab==='u'?'':'none'; $('#footB').style.display=S.tab==='b'?'':'none';
+  /* offer */
+  $('#ofCovs').innerHTML=hc.map(function(b){ return '<img src="img/c/'+b[1]+'.jpg" alt="">'; }).join('');
+  $('#oS').textContent=T.oS[i].replace('{A}',A);
+  /* notify */
+  $('#ntCard').textContent=T.ntCard[i].replace('{B}',hc[1][0]);
+}
+$('#collage').innerHTML=COLLAGE.map(function(c){ return '<div class="c">'+c.map(function(s){ return '<img src="img/c/'+s+'.jpg" alt="">'; }).join('')+'</div>'; }).join('');
+$('#tropeGrid').innerHTML=TROPES.map(function(t){ return '<button class="scr-tr" data-k="'+t[0]+'"><span class="ph"><img src="img/t/'+t[0]+'.png" alt=""><i class="ck"></i></span><b></b></button>'; }).join('');
+$$('#tropeGrid .scr-tr').forEach(function(b){ b.addEventListener('click',function(){ var k=b.dataset.k, j=S.tropes.indexOf(k); if(j>-1) S.tropes.splice(j,1); else S.tropes.push(k); syncScreen(); }); });
+(function(){ var all=[].concat.apply([],Object.keys(SHELF).map(function(k){ return SHELF[k].b.map(function(b){return b[1];}); })).concat(['life-is-not-a-game','two-years-gone','the-perfect-spiral','sweet-temptation','the-edge-of-reason','last-to-fall','a-reject-she-wolf','billionaire-s-masquerade']);
+  var u=all.filter(function(x,i){ return all.indexOf(x)===i; }), h='';
+  for(var c=0;c<8;c++){ h+='<div class="col">'; for(var r=0;r<4;r++) h+='<img src="img/c/'+u[(c*4+r*3)%u.length]+'.jpg" alt="">'; h+='</div>'; }
+  $('#heroGrid').innerHTML=h; })();
+
+/* ---- router ---- */
+var ORDER=['welcome','tropes','loader','payoff','paywall','offer','notify'];
+var LABEL={welcome:'Welcome',tropes:'Tropes',loader:'Loader',payoff:'First shelf',paywall:'Paywall',offer:'Offer on close',notify:'Notifications'};
+var scr={}, hist=[], cur='welcome', loadTimers=[];
+$$('.scr').forEach(function(s){ scr[s.dataset.id]=s; });
+function enter(id){ paintChips(); paintPanel(); clearLoad(); $('#dlg').classList.remove('on');
+  if(id==='loader') runLoader(); var b=scr[id].querySelector('.scr-body'); if(b) b.scrollTop=0; }
+function go(id,opts){ opts=opts||{}; if(id===cur) return; var from=scr[cur], to=scr[id];
+  if(!opts.back) hist.push(cur);
+  if(!to.dataset.overlay){ from.classList.remove('is-active'); if(!from.dataset.overlay) from.classList.add('is-past'); else scr.paywall.classList.remove('is-active'), scr.paywall.classList.add('is-past'); }
+  to.classList.remove('is-past'); to.classList.add('is-active'); cur=id; enter(id); }
+function back(){ if(!hist.length) return; var prev=hist.pop(); scr[cur].classList.remove('is-active'); scr[prev].classList.remove('is-past'); scr[prev].classList.add('is-active'); cur=prev; enter(prev); }
+function next(){ var i=ORDER.indexOf(cur), n=ORDER[i+1]; if(n==='offer') n='notify'; if(n) go(n); }
+function jump(id){ var i=ORDER.indexOf(id);
+  Object.keys(scr).forEach(function(k){ scr[k].classList.add('nofx'); scr[k].classList.remove('is-active','is-past'); });
+  ORDER.slice(0,i).forEach(function(k){ if(!scr[k].dataset.overlay) scr[k].classList.add('is-past'); });
+  hist=ORDER.slice(0,i).filter(function(k){ return k!=='offer'; });
+  if(id==='offer'){ scr.paywall.classList.remove('is-past'); scr.paywall.classList.add('is-active'); }
+  scr[id].classList.remove('is-past'); scr[id].classList.add('is-active'); cur=id;
+  requestAnimationFrame(function(){ requestAnimationFrame(function(){ Object.keys(scr).forEach(function(k){ scr[k].classList.remove('nofx'); }); }); });
+  syncScreen(); enter(id); }
+$$('[data-next]').forEach(function(b){ b.addEventListener('click',function(){ if(b.disabled) return; next(); }); });
+$$('[data-back]').forEach(function(b){ b.addEventListener('click',back); });
+$('#pwX').addEventListener('click',function(){ go('offer'); });
+$('#ofNo').addEventListener('click',function(){ go('notify'); });
+$('#ofDim').addEventListener('click',function(){ go('notify'); });
+$('#ofCta').addEventListener('click',function(){ toast(T.tBuy[L()]); });
+$('#ofPack').addEventListener('click',function(){ toast(T.tBuy[L()]); });
+$('#pwCta').addEventListener('click',function(){ toast(T.tBuy[L()]); setTimeout(function(){ if(cur==='paywall'&&!demo.on) go('notify'); },1300); });
+$$('#pwSeg button').forEach(function(b){ b.addEventListener('click',function(){ S.tab=b.dataset.tab; syncScreen(); }); });
+$('#ntCta').addEventListener('click',function(){ $('#dlg').classList.add('on'); });
+$('#ntNo').addEventListener('click',function(){ toast(T.tDone[L()]); });
+$('#dOk').addEventListener('click',function(){ $('#dlg').classList.remove('on'); toast(T.tDone[L()]); });
+$('#dNo').addEventListener('click',function(){ $('#dlg').classList.remove('on'); toast(T.tDone[L()]); });
+var tt; function toast(m){ var e=$('#toast'); e.textContent=m; e.classList.add('show'); clearTimeout(tt); tt=setTimeout(function(){ e.classList.remove('show'); },1600); }
+
+function clearLoad(){ loadTimers.forEach(clearTimeout); loadTimers=[]; }
+function runLoader(){ var k=demo.on?0.5:1, st=$$('#loadSteps > div'); st.forEach(function(s){ s.classList.remove('on'); });
+  st.forEach(function(s,j){ loadTimers.push(setTimeout(function(){ s.classList.add('on'); },(500+j*800)*k)); });
+  loadTimers.push(setTimeout(function(){ if(cur==='loader') go('payoff'); },3600*k)); }
+
+var chipKey='';
+function paintChips(){ var c=$('#chips');
+  if(!chipKey){ chipKey='1'; ORDER.forEach(function(id){ var b=document.createElement('button'); b.className='chip'+(id==='offer'?' offer':''); b.textContent=LABEL[id]; b.dataset.id=id; b.onclick=function(e){ if(e.isTrusted) stopDemo(); jump(id); }; c.appendChild(b); }); }
+  $$('#chips .chip').forEach(function(b){ b.classList.toggle('on',b.dataset.id===cur); }); }
+
+var PANEL={
+welcome:{ctx:true,t:'Welcome',kept:'Untouched — your cover collage, the GALATEA mark, the serif headline with the mint italic, the pink Get Started button and the legal line.'},
+tropes:{ctx:true,t:'What are your favorite genres and tropes?',kept:'Untouched — all 15 tropes in your order, the round photos, the lavender ring and check, and “Pick at least 1”. The one difference is after Continue: the notification prompt no longer fires here (Idea 4).'},
+loader:{n:3,t:'Let the loader read the quiz',hyp:'Try writing her tropes into your loader lines, <b>because today every reader sees “Evaluating all fictional crushes”, whatever she picked, so the quiz looks unread</b>.',out:'CR +10–15%',kept:'The black sky with lavender sparks, the serif headline ending in “happily ever after”, the pink ticks, and your “Fine-tuning the romantic chemistry” word for word.'},
+payoff:{n:3,t:'Show a first shelf built from her picks',hyp:'Try a shelf of your own titles from the sections she picked, before any paywall, <b>because today the quiz drops her into a single book and the matching rows only appear later on Home</b>.',out:'CR +10–15%',kept:'Your Home rows, a section title over a strip of covers, with galatea.com’s own sections and covers, in the onboarding’s green and serif.'},
+paywall:{n:2,t:'Show Unlimited now, named after her tropes',hyp:'Try this paywall right after her first shelf, headlined with her two top tropes, <b>because today a new reader first meets “Unlock unlimited access to all stories” at a locked chapter, after making an account</b>.',out:'CR +15–20%',
+ n2:5,hyp2:'Try your 4.6 from 299K App Store ratings and the 15 million women from your listing above the plans, <b>because today the proof is one quote and a small “5 million readers” line under the legal text</b>.',out2:'CR +10–15%',
+ kept:'The Unlimited Reading / Buy Chapters switch, Best Value, the five stars and Amy Mitchell’s quote, the Individual and Friends &amp; Family cards and prices, the green button and the App Store line. The image behind the headline is now three covers from her shelf.'},
+offer:{n:1,t:'Catch the close with your 110-point pack',hyp:'Try your Recommended points pack as the second chance when she closes Unlimited, <b>because today the X just goes back to the book, and $7.99 is a far smaller first purchase than $69.99 a year</b>. Pack, price and tag are your own.',out:'ARPU +10–15%',kept:'Your Buy Chapters card with the lime Recommended tag, “Your balance: 10 Points” and the green button, on a sheet over the paywall.'},
+notify:{n:4,t:'Ask for notifications after the paywall',hyp:'Try the system prompt here, behind your own “Never Miss New Releases and Updates”, <b>because today it fires the moment she taps Continue on the quiz, before she has seen one book</b>.',out:'CR +10–15%',kept:'Your App Store headline, the onboarding’s green and serif, the pink button and the iOS dialog word for word.'}
+};
+function outBlock(v){ return '<div class="pn-out"><div class="lab">Potential outcome · based on Adapty data</div><div class="v">'+v+'</div></div>'; }
+function paintPanel(){ var d=PANEL[cur]; if(!d) return; var h='';
+  if(d.ctx) h+='<div class="pn-n ctx">Context · no change proposed</div><h3 class="pn-t">'+d.t+'</h3><div class="pn-kept">'+d.kept+'</div>';
+  else { h+='<div class="pn-n">Idea '+d.n+' of 5</div><h3 class="pn-t">'+d.t+'</h3><p class="pn-hyp">'+d.hyp+'</p>'+outBlock(d.out);
+    if(d.hyp2) h+='<div class="pn-sep"></div><div class="pn-n">Idea '+d.n2+' of 5</div><p class="pn-hyp" style="margin-top:12px">'+d.hyp2+'</p>'+outBlock(d.out2);
+    h+='<div class="pn-kept"><b>Your design, unchanged.</b> '+d.kept+'</div>'; }
+  if(S.lang!=='en') h+='<div class="pn-kept"><b>Language.</b> Screens translated by us into '+(S.lang==='de'?'German':'Portuguese')+', two of the languages your app offers. Prices stay as published in dollars; book titles and Amy Mitchell’s quote stay in English.</div>';
+  h+='<div class="pn-foot">Impact ranges are Adapty’s expected effect from teardowns and A/B tests across subscription apps — not measured lift for Inkitt. Prices, ratings, quotes, tropes and titles come from your own screens, galatea.com and your App Store listing.</div>';
+  $('#panel').innerHTML=h; }
+
+/* ---- toolbar ---- */
+function seg(id,attr,fn){ $$('#'+id+' button').forEach(function(b){ b.addEventListener('click',function(e){ if(e.isTrusted) stopDemo(); fn(b.dataset[attr]); $$('#'+id+' button').forEach(function(x){ x.classList.toggle('on',x===b); }); apply(); syncScreen(); paintPanel(); }); }); }
+seg('segLang','l',function(v){ S.lang=v; document.documentElement.lang=v==='pt'?'pt-BR':v; });
+seg('segTheme','th',function(v){ S.theme=v; });
+
+/* ---- views ---- */
+function showView(v){ if(v!=='proto') stopDemo(); $$('.view').forEach(function(x){ x.classList.remove('on'); }); $('#view-'+v).classList.add('on');
+  $$('.nav-links button').forEach(function(b){ b.classList.toggle('on',b.dataset.view===v); }); window.scrollTo(0,0); }
+$$('[data-view]').forEach(function(b){ b.addEventListener('click',function(){ showView(b.dataset.view); }); });
+$$('.idea[data-go]').forEach(function(b){ b.addEventListener('click',function(){ showView('proto'); jump(b.dataset.go); }); });
+
+/* ---- the 30-second walkthrough ---- */
+var demo={on:false,tok:0,t0:0,dur:23700,raf:0};
+var CAP={welcome:'Your welcome, untouched.',tropes:'Her picks drive everything after this screen.',loader:'The loader now names what she picked.',payoff:'A first shelf of your own titles, from her tropes.',paywall:'Unlimited, named after her tropes, with your 4.6 at the price.',offer:'Close it, and your 110-point pack is the second chance.',end:'Then notifications, after the paywall.'};
+function wait(ms,tok){ return new Promise(function(res,rej){ setTimeout(function(){ tok===demo.tok?res():rej('stop'); },ms); }); }
+function cap(t){ $('#demoTxt').textContent=t; }
+function fingerTo(el){ var r=el.getBoundingClientRect(), f=$('#finger'); f.style.left=(r.left+r.width/2+window.scrollX)+'px'; f.style.top=(r.top+r.height/2+window.scrollY)+'px'; f.classList.add('on'); }
+async function tap(sel,tok){ var el=typeof sel==='string'?$(sel):sel; if(!el) return; fingerTo(el); await wait(380,tok); $('#finger').classList.add('press'); await wait(120,tok); $('#finger').classList.remove('press'); el.click(); await wait(160,tok); }
+async function scrollIn(body,to,tok){ body.scrollTo({top:to,behavior:'smooth'}); await wait(500,tok); body.scrollTop=to; }
+function bar(){ if(!demo.on) return; var p=Math.min(1,(performance.now()-demo.t0)/demo.dur); $('#demoBar').style.width=(p*100)+'%'; demo.raf=requestAnimationFrame(bar); }
+async function startDemo(){ stopDemo(); var tok=++demo.tok; demo.on=true; demo.t0=performance.now();
+  showView('proto'); S.tropes=['enemies','proximity','highschool','happy','badboys']; S.plan='ind'; S.tab='u'; jump('welcome'); $('#demoCap').classList.add('on'); bar();
+  try{
+    cap(CAP.welcome); await wait(1300,tok); await tap('.scr-wel .scr-cta',tok); await wait(450,tok);
+    cap(CAP.tropes); await tap('#tropeGrid [data-k=wolves]',tok); await wait(450,tok); await tap('#tropeGrid [data-k=spicy]',tok); await wait(450,tok); await tap('#tropeGrid [data-k=wolves]',tok); await wait(350,tok);
+    await tap('#tropeCta',tok);
+    cap(CAP.loader); await wait(1900,tok);
+    cap(CAP.payoff); await wait(900,tok); await scrollIn(scr.payoff.querySelector('.scr-body'),160,tok); await wait(900,tok); await tap('.scr-pay .scr-cta',tok); await wait(500,tok);
+    cap(CAP.paywall); await wait(1300,tok); await scrollIn($('#pwBody'),240,tok); await tap('#pwPlans [data-plan=ff]',tok); await wait(700,tok); await tap('#pwPlans [data-plan=ind]',tok); await wait(500,tok);
+    await tap('#pwSeg [data-tab=b]',tok); await wait(1000,tok); await tap('#pwSeg [data-tab=u]',tok); await wait(400,tok);
+    cap(CAP.offer); await tap('#pwX',tok); await wait(2600,tok);
+    cap('Same flow, your design. Prices exactly as you publish them.'); await wait(1600,tok);
+  }catch(e){ return; }
+  stopDemo(); }
+function stopDemo(){ if(!demo.on) return; demo.on=false; demo.tok++; cancelAnimationFrame(demo.raf); $('#demoCap').classList.remove('on'); $('#finger').classList.remove('on'); }
+$('#demoBtn').addEventListener('click',startDemo);
+$('#heroDemo').addEventListener('click',startDemo);
+$('#phoneIn').addEventListener('pointerdown',function(e){ if(e.isTrusted) stopDemo(); });
+$$('.nav-links button').forEach(function(b){ b.addEventListener('click',stopDemo); });
+
+apply(); syncScreen(); paintChips(); paintPanel();
+if(/[?&]open=proto/.test(location.search)) showView('proto');
+</script>
+</body>
+</html>
